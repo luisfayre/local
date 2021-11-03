@@ -1,4 +1,4 @@
-package com.local.app
+package com.alcudia.local
 
 import io.flutter.embedding.android.FlutterActivity
 
