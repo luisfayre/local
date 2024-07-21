@@ -47,4 +47,27 @@ class CartProvider with ChangeNotifier {
     _currentCompanyId = null;
     notifyListeners();
   }
+
+  void increaseQuantity(ProductByCompanyResponse product) {
+    for (var item in _items) {
+      if (item.product.id == product.id) {
+        item.quantity++;
+        notifyListeners();
+        return;
+      }
+    }
+  }
+
+  void decreaseQuantity(ProductByCompanyResponse product) {
+    for (var item in _items) {
+      if (item.product.id == product.id) {
+        item.quantity--;
+        if (item.quantity <= 0) {
+          removeItem(product);
+        }
+        notifyListeners();
+        return;
+      }
+    }
+  }
 }

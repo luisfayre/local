@@ -18,7 +18,23 @@ class CartScreen extends StatelessWidget {
                     final cartItem = cartProvider.items[index];
                     return ListTile(
                       title: Text(cartItem.product.name),
-                      subtitle: Text('Cantidad: ${cartItem.quantity}'),
+                      subtitle: Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.remove),
+                            onPressed: () {
+                              cartProvider.decreaseQuantity(cartItem.product);
+                            },
+                          ),
+                          Text('Cantidad: ${cartItem.quantity}'),
+                          IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              cartProvider.increaseQuantity(cartItem.product);
+                            },
+                          ),
+                        ],
+                      ),
                       trailing:
                           Text('\$${(double.parse(cartItem.product.price) * cartItem.quantity).toStringAsFixed(2)}'),
                     );
