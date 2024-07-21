@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:local/pages/home/home.dart';
-import 'package:local/pages/principal/principal_screen.dart';
 import 'package:local/provider/carrito_provider.dart';
 import 'package:local/provider/empresa_provider.dart';
 import 'package:local/provider/product_provider.dart';
