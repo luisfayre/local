@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local/const.dart';
 import 'package:local/pages/carrito/carrito.dart';
 import 'package:local/pages/detalle_empresa/detalle.dart';
 import 'package:local/provider/empresa_provider.dart';
@@ -16,6 +17,7 @@ class _HomePageState extends State<PrincipalScreen> {
     super.initState();
     // Usar addPostFrameCallback para asegurar que el contexto está completamente inicializado
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProductProvider>().init();
       context.read<CompanyProvider>().fetchCompanies();
     });
   }
@@ -40,12 +42,50 @@ class _HomePageState extends State<PrincipalScreen> {
         ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.only(left: 16, top: 16),
+            child: Text(
+              "Categorias",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Container(
+            height: 200,
+            child: Consumer<ProductProvider>(builder: (context, product, child) {
+              if (product.categorias.isNotEmpty) {
+                final categorias = product.categorias;
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categorias.length,
+                  itemBuilder: (context, index) {
+                    final categoria = categorias[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            categoria.image ?? AppImage().placeholder,
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          Text(categoria.categoria),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
+              return Container();
+            }),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               "Empresas",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(

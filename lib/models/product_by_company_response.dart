@@ -17,7 +17,7 @@ class ProductByCompanyResponse {
   final String description;
   final String price;
   final int stock;
-  final String image;
+  String? image;
 
   ProductByCompanyResponse({
     required this.id,
@@ -26,7 +26,7 @@ class ProductByCompanyResponse {
     required this.description,
     required this.price,
     required this.stock,
-    required this.image,
+    this.image,
   });
 
   factory ProductByCompanyResponse.fromJson(Map<String, dynamic> json) => ProductByCompanyResponse(
